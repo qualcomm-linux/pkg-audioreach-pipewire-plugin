@@ -1,3 +1,9 @@
+audioreach-pipewire-plugin (0.0+git20260515-0qli+staging2~) UNRELEASED; urgency=medium
+
+  * Unreleased changes
+
+ -- root <root@f3f6171c9b61>  Fri, 10 Jul 2026 12:28:41 +0000
+
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1) forky; urgency=low
 
   [ Agathe Porte ]
