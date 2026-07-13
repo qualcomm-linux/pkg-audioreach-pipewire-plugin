@@ -1,9 +1,9 @@
-audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+3~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+3) trixie; urgency=medium
 
   [ Chiluka Rohith]
   * Unreleased changes
 
- -- root <root@9e0872c7ceb7>  Sun, 13 Jul 2026 00:00:00 +0000
+ -- root <root@4bc4bc0e5bc4>  Mon, 13 Jul 2026 13:39:36 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+2~) UNRELEASED; urgency=medium
 
