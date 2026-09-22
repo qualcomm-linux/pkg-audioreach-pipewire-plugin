@@ -1,5 +1,6 @@
-audioreach-pipewire-plugin (0.0+git20260515-0qli+staging2~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (0.0+git20260515-0qli+staging2) forky; urgency=medium
 
+  [ Lukas Märdian ]
   * d/copyright: Initial DEP-5 data.
   * d/watch: Initial watch file.
   * d/controL Wrap-and-sort.
@@ -12,7 +13,7 @@ audioreach-pipewire-plugin (0.0+git20260515-0qli+staging2~) UNRELEASED; urgency=
   * d/patches: Link against QLI's audioreach-pal.pc pkgconfig.
     - d/p/0001-build-use-audioreach-pal-pkg-config.patch
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 22 Sep 2026 16:45:28 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 22 Sep 2026 14:47:24 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1) forky; urgency=low
 
