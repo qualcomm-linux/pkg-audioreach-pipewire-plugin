@@ -1,0 +1,47 @@
+From: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 00:00:00 +0200
+Subject: build: use audioreach-pal pkg-config metadata
+
+Use the namespaced AudioReach PAL pkg-config module for the PAL public
+headers and library instead of the separate pal-headers module and the
+generic libpal linker flag.
+
+Forwarded: https://github.com/AudioReach/audioreach-pipewire-plugin/pull/34
+Signed-off-by: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+---
+ Makefile.am  | 4 ++--
+ configure.ac | 5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+Index: pkg-audioreach-pipewire-plugin/Makefile.am
+===================================================================
+--- pkg-audioreach-pipewire-plugin.orig/Makefile.am
++++ pkg-audioreach-pipewire-plugin/Makefile.am
+@@ -6,9 +6,9 @@ AM_CFLAGS = -Wno-unused-parameter -Wno-u
+ 
+ lib_LTLIBRARIES      = libpipewire-module-pal.la
+ libpipewire_module_pal_la_SOURCES   = src/pw-pal-plugin.c
+-libpipewire_module_pal_la_CFLAGS = $(AM_CFLAGS) $(PALHEADERS_CFLAGS) @PIPEWIRE_CFLAGS@
++libpipewire_module_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ @PIPEWIRE_CFLAGS@
+ libpipewire_module_pal_la_LDFLAGS   = -shared -avoid-version
+-libpipewire_module_pal_la_LIBADD   = -ltinyalsa -ldl -lexpat -lpal -lagm
++libpipewire_module_pal_la_LIBADD   = -ltinyalsa -ldl -lexpat @PAL_LIBS@ -lagm
+ 
+ install-exec-hook:
+ 	mkdir -p $(DESTDIR)/usr/lib/pipewire-0.3
+Index: pkg-audioreach-pipewire-plugin/configure.ac
+===================================================================
+--- pkg-audioreach-pipewire-plugin.orig/configure.ac
++++ pkg-audioreach-pipewire-plugin/configure.ac
+@@ -26,8 +26,9 @@ AC_SUBST([AGM_LIBS])
+ PKG_CHECK_MODULES([PIPEWIRE], [libpipewire-0.3])
+ AC_SUBST([PIPEWIRE_CFLAGS])
+ 
+-PKG_CHECK_MODULES([PALHEADERS], [pal-headers])
+-AC_SUBST([PALHEADERS_CFLAGS])
++PKG_CHECK_MODULES([PAL], [audioreach-pal])
++AC_SUBST([PAL_CFLAGS])
++AC_SUBST([PAL_LIBS])
+ 
+ AC_CONFIG_FILES([ Makefile pw-pal.pc ])
+ AC_OUTPUT
