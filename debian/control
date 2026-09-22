@@ -19,7 +19,7 @@ Build-Depends:
  wireplumber,
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-pipewire-plugin
-Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin -b debian/latest
+Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin.git
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin
 
 Package: audioreach-pipewire-plugin
