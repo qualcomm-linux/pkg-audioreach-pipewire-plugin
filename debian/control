@@ -6,17 +6,13 @@ Uploaders:
  Lukas Märdian <lukas.maerdian@oss.qualcomm.com>,
 Build-Depends:
  debhelper-compat (= 13),
- audioreach-graphmgr,
- audioreach-graphmgr-dev,
- audioreach-pal,
- audioreach-pal-dev,
+ libagm-dev,
+ libaudioreach-pal-dev,
  libexpat1-dev,
  libpipewire-0.3-dev,
  libspa-0.2-dev,
  libtinyalsa-dev,
- pipewire,
- pkg-config,
- wireplumber,
+ pkgconf,
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-pipewire-plugin
 Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin.git
@@ -25,8 +21,10 @@ Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin
 Package: audioreach-pipewire-plugin
 Architecture: arm64
 Depends:
- audioreach-graphmgr,
- audioreach-pal,
+ audioreach-calibration-data,
+ audioreach-conf,
+ audioreach-pal-plugins,
+ libagm-tinyalsa-plugins,
  pipewire,
  wireplumber,
  ${misc:Depends},
