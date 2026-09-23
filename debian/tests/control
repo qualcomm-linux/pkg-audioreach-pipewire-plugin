@@ -1,0 +1,12 @@
+Tests: rb3gen2-playback
+Depends:
+ audioreach-dkms,
+ ffmpeg,
+ hexagon-dsp-binaries-thundercomm-rb3gen2,
+ pipewire-bin,
+ wireplumber,
+ @,
+Restrictions:
+ breaks-testbed,
+ skippable,
+Architecture: arm64

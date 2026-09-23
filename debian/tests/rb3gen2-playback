@@ -1,0 +1,96 @@
+#!/bin/sh
+set -eu
+
+skip_test()
+{
+	echo "WARNING: skipping rb3gen2-playback: $*" >&2
+	exit 77
+}
+
+compatible=/sys/firmware/devicetree/base/compatible
+if [ ! -r "$compatible" ] || \
+	! tr '\000' '\n' < "$compatible" | grep -Fxq qcom,qcs6490-rb3gen2; then
+	skip_test "this hardware test only supports Thundercomm RB3 Gen 2"
+fi
+
+missing_packages=
+for package in \
+	audioreach-dkms \
+	ffmpeg \
+	hexagon-dsp-binaries-thundercomm-rb3gen2 \
+	pipewire-bin \
+	wireplumber
+do
+	if ! dpkg-query -W -f='${Status}' "$package" 2>/dev/null | \
+		grep -Fqx 'install ok installed'; then
+		missing_packages="${missing_packages}${missing_packages:+ }$package"
+	fi
+done
+
+if [ -n "$missing_packages" ]; then
+	skip_test "required packages are not installed: $missing_packages"
+fi
+
+if [ ! -d /sys/module/audioreach_driver ]; then
+	skip_test "audioreach_driver is not loaded; install the prerequisites and reboot"
+fi
+
+play_file()
+{
+	log=$1
+	file=$2
+	status=0
+	timeout 30s pw-play --target=pal_sink_speaker_db "$file" > "$log" 2>&1 || status=$?
+	cat "$log"
+
+	if [ -n "${AUTOPKGTEST_ARTIFACTS:-}" ]; then
+		cp "$log" "$AUTOPKGTEST_ARTIFACTS/"
+	fi
+
+	if [ "$status" -ne 0 ]; then
+		echo "pw-play exited with status $status" >&2
+		return "$status"
+	fi
+}
+
+tone="$AUTOPKGTEST_TMP/stereo-tone.wav"
+ffmpeg -hide_banner -loglevel error -nostdin -y \
+	-f lavfi \
+	-i 'aevalsrc=0.1*sin(2*PI*440*t)|0.1*sin(2*PI*660*t):s=48000:d=5' \
+	-c:a pcm_s16le "$tone"
+
+echo "PLAYING beep ..."
+play_file "$AUTOPKGTEST_TMP/pw-play-tone.log" "$tone"
+
+sample="$AUTOPKGTEST_TMP/recorded-sample.wav"
+record_log="$AUTOPKGTEST_TMP/pw-record.log"
+record_status=0
+echo "RECORDING ..."
+# timeout returns 124 after sending SIGINT at the five-second mark. This
+# avoids treating pw-record's normal SIGINT exit status as a recording error.
+timeout --signal=INT --kill-after=5s 5s \
+	pw-record --target=pal_source_speaker_mic \
+	--rate=48000 --channels=2 --format=s16 "$sample" \
+	> "$record_log" 2>&1 || record_status=$?
+cat "$record_log"
+
+if [ "$record_status" -ne 124 ]; then
+	echo "pw-record exited with status $record_status" >&2
+	exit "$record_status"
+fi
+
+test -s "$sample"
+
+if [ -n "${AUTOPKGTEST_ARTIFACTS:-}" ]; then
+	cp "$record_log" "$AUTOPKGTEST_ARTIFACTS/"
+	cp "$sample" "$AUTOPKGTEST_ARTIFACTS/"
+fi
+
+echo "PLAYING recording ..."
+play_file "$AUTOPKGTEST_TMP/pw-play-recording.log" "$sample"
+
+echo ""
+echo "RB3 Gen 2 PipeWire playback, recording, and replay completed."
+echo "Did you hear the tone and the recorded sample playing?"
+echo "The speakers need to be connected to the RB3's bottom interposer"
+echo "board (not mezzanine), using a red-black, red-black cabling."
