@@ -23,6 +23,7 @@ Architecture: arm64
 Depends:
  audioreach-calibration-data,
  audioreach-conf,
+ audioreach-pal,
  audioreach-pal-plugins,
  libagm-tinyalsa-plugins,
  pipewire,
