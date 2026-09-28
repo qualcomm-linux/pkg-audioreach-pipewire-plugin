@@ -1,0 +1,396 @@
+From: Tejas Vijay Kanfade <tkanfade@qti.qualcomm.com>
+Date: Thu, 24 Sep 2026 16:25:48 +0530
+Subject: build: rename plugin to libpipewire-module-audioreach-pal
+
+The PipeWire plugin is currently named libpipewire-module-pal.so.
+The PAL naming is generic and does not identify AudioReach ownership.
+Rename to libpipewire-module-audioreach-pal to make the AudioReach
+ownership explicit and avoid potential name collisions.
+
+Update the module name in pw-pal-plugin.conf accordingly.
+
+Fixes: https://github.com/AudioReach/audioreach-pipewire-plugin/issues/33
+Validated on iq-9075-evk with QLI build.
+
+Origin: https://github.com/AudioReach/audioreach-pipewire-plugin/pull/37
+
+Signed-off-by: Tejas Vijay Kanfade <tkanfade@qti.qualcomm.com>
+---
+ Makefile.am                       |  16 ++--
+ configs/pw-audioreach-plugin.conf | 162 ++++++++++++++++++++++++++++++++++++++
+ configs/pw-pal-plugin.conf        | 162 --------------------------------------
+ 3 files changed, 170 insertions(+), 170 deletions(-)
+ create mode 100644 configs/pw-audioreach-plugin.conf
+ delete mode 100644 configs/pw-pal-plugin.conf
+
+diff --git a/Makefile.am b/Makefile.am
+index 1b7df6a..496be0e 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -4,22 +4,22 @@ EXTRA_DIST = $(pkgconfig_DATA)
+ 
+ AM_CFLAGS = -Wno-unused-parameter -Wno-unused-result
+ 
+-lib_LTLIBRARIES      = libpipewire-module-pal.la
+-libpipewire_module_pal_la_SOURCES   = src/pw-pal-plugin.c
+-libpipewire_module_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ @PIPEWIRE_CFLAGS@
+-libpipewire_module_pal_la_LDFLAGS   = -shared -avoid-version
+-libpipewire_module_pal_la_LIBADD   = -ltinyalsa -ldl -lexpat @PAL_LIBS@ -lagm
++lib_LTLIBRARIES      = libpipewire-module-audioreach-pal.la
++libpipewire_module_audioreach_pal_la_SOURCES   = src/pw-pal-plugin.c
++libpipewire_module_audioreach_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ @PIPEWIRE_CFLAGS@
++libpipewire_module_audioreach_pal_la_LDFLAGS   = -shared -avoid-version
++libpipewire_module_audioreach_pal_la_LIBADD   = -ltinyalsa -ldl -lexpat @PAL_LIBS@ -lagm
+ 
+ install-exec-hook:
+ 	mkdir -p $(DESTDIR)/usr/lib/pipewire-0.3
+-	$(INSTALL_PROGRAM) .libs/libpipewire-module-pal.so $(DESTDIR)/usr/lib/pipewire-0.3/
+-	rm -f $(DESTDIR)/usr/lib/libpipewire-module-pal.so
++	$(INSTALL_PROGRAM) .libs/libpipewire-module-audioreach-pal.so $(DESTDIR)/usr/lib/pipewire-0.3/
++	rm -f $(DESTDIR)/usr/lib/libpipewire-module-audioreach-pal.so
+ 
+ install-data-hook:
+ 	mkdir -p $(DESTDIR)/usr/share/pipewire/pipewire.conf.d/
+ 	mkdir -p $(DESTDIR)/usr/share/wireplumber/wireplumber.conf.d/
+ 	mkdir -p $(DESTDIR)/usr/share/wireplumber/scripts/
+-	$(INSTALL_DATA) $(srcdir)/configs/pw-pal-plugin.conf $(DESTDIR)/usr/share/pipewire/pipewire.conf.d/
++	$(INSTALL_DATA) $(srcdir)/configs/pw-audioreach-plugin.conf $(DESTDIR)/usr/share/pipewire/pipewire.conf.d/
+ 	$(INSTALL_DATA) $(srcdir)/configs/60-disable-alsa.conf $(DESTDIR)/usr/share/wireplumber/wireplumber.conf.d/
+ 	$(INSTALL_DATA) $(srcdir)/configs/90-device-detection.conf  $(DESTDIR)/usr/share/wireplumber/wireplumber.conf.d/
+ 	$(INSTALL_DATA) $(srcdir)/configs/90-device-detection.lua  $(DESTDIR)/usr/share/wireplumber/scripts/
+diff --git a/configs/pw-audioreach-plugin.conf b/configs/pw-audioreach-plugin.conf
+new file mode 100644
+index 0000000..a5c6551
+--- /dev/null
++++ b/configs/pw-audioreach-plugin.conf
+@@ -0,0 +1,162 @@
++context.modules = [
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_speaker_ll"
++        node.description = "pal sink speaker ll"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "notification"
++        jack-name = "Headset Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_speaker_db"
++        node.description = "pal sink speaker_db"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "music"
++        jack-name = "Headset Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_speaker_compress"
++        node.description = "pal sink speaker_compress"
++        stream.props = {
++            audio.position = [ FL FR ]
++            codec.type = "mp3"
++            codec.sample_rate = 44100
++            codec.bit_rate = 128000
++            codec.channels = 2
++            compress.offload = true
++        }
++        media.class = "Audio/Sink"
++        media.role = "music"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_headset_ll"
++        node.description = "pal sink headset_ll"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "notification"
++        jack-name = "Headset Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_headset_db"
++        node.description = "pal sink headset_db"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "music"
++        jack-name = "Headset Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_source_speaker_mic"
++        node.description = "pal source handset mic"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Source"
++        jack-name = "Headset Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_source_headset_mic"
++        node.description = "pal source headset mic"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Source"
++        jack-name = "Headset Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_dp_out_ll"
++        node.description = "pal sink dp audio ll"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "notification"
++        jack-name = "DP0 Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_hdmi_out_ll"
++        node.description = "pal sink hdmi audio ll"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "notification"
++        jack-name = "DP1 Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_dp_out_db"
++        node.description = "pal sink dp audio db"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "music"
++        jack-name = "DP0 Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_hdmi_out_db"
++        node.description = "pal sink hdmi audio db"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "music"
++        jack-name = "DP1 Jack"
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_combined_db"
++        node.description = "pal sink combined speaker and headset db"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "music"
++        jack-name = "Headset Jack"
++        devices = [ Speaker Headset ]
++    }
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_sink_combined_ll"
++        node.description = "pal sink combined speaker and headset ll"
++        stream.props = {
++            audio.position = [ FL FR ]
++        }
++        media.class = "Audio/Sink"
++        media.role = "notification"
++        jack-name = "Headset Jack"
++        devices = [ Speaker Headset ]
++    }
++}
++]
+diff --git a/configs/pw-pal-plugin.conf b/configs/pw-pal-plugin.conf
+deleted file mode 100644
+index 164465c..0000000
+--- a/configs/pw-pal-plugin.conf
++++ /dev/null
+@@ -1,162 +0,0 @@
+-context.modules = [
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_speaker_ll"
+-        node.description = "pal sink speaker ll"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "notification"
+-        jack-name = "Headset Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_speaker_db"
+-        node.description = "pal sink speaker_db"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "music"
+-        jack-name = "Headset Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_speaker_compress"
+-        node.description = "pal sink speaker_compress"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-            codec.type = "mp3"
+-            codec.sample_rate = 44100
+-            codec.bit_rate = 128000
+-            codec.channels = 2
+-            compress.offload = true
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "music"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_headset_ll"
+-        node.description = "pal sink headset_ll"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "notification"
+-        jack-name = "Headset Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_headset_db"
+-        node.description = "pal sink headset_db"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "music"
+-        jack-name = "Headset Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_source_speaker_mic"
+-        node.description = "pal source handset mic"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Source"
+-        jack-name = "Headset Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_source_headset_mic"
+-        node.description = "pal source headset mic"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Source"
+-        jack-name = "Headset Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_dp_out_ll"
+-        node.description = "pal sink dp audio ll"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "notification"
+-        jack-name = "DP0 Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_hdmi_out_ll"
+-        node.description = "pal sink hdmi audio ll"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "notification"
+-        jack-name = "DP1 Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_dp_out_db"
+-        node.description = "pal sink dp audio db"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "music"
+-        jack-name = "DP0 Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_hdmi_out_db"
+-        node.description = "pal sink hdmi audio db"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "music"
+-        jack-name = "DP1 Jack"
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_combined_db"
+-        node.description = "pal sink combined speaker and headset db"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "music"
+-        jack-name = "Headset Jack"
+-        devices = [ Speaker Headset ]
+-    }
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_sink_combined_ll"
+-        node.description = "pal sink combined speaker and headset ll"
+-        stream.props = {
+-            audio.position = [ FL FR ]
+-        }
+-        media.class = "Audio/Sink"
+-        media.role = "notification"
+-        jack-name = "Headset Jack"
+-        devices = [ Speaker Headset ]
+-    }
+-}
+-]
