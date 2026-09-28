@@ -1,6 +1,9 @@
-From: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+From: =?utf-8?q?Lukas_M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>
 Date: Tue, 22 Sep 2026 00:00:00 +0200
 Subject: build: use audioreach-pal pkg-config metadata
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 Use the namespaced AudioReach PAL pkg-config module for the PAL public
 headers and library instead of the separate pal-headers module and the
@@ -13,11 +16,11 @@ Signed-off-by: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
  configure.ac | 5 +++--
  2 files changed, 5 insertions(+), 4 deletions(-)
 
-Index: pkg-audioreach-pipewire-plugin/Makefile.am
-===================================================================
---- pkg-audioreach-pipewire-plugin.orig/Makefile.am
-+++ pkg-audioreach-pipewire-plugin/Makefile.am
-@@ -6,9 +6,9 @@ AM_CFLAGS = -Wno-unused-parameter -Wno-u
+diff --git a/Makefile.am b/Makefile.am
+index a8a98b5..1b7df6a 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -6,9 +6,9 @@ AM_CFLAGS = -Wno-unused-parameter -Wno-unused-result
  
  lib_LTLIBRARIES      = libpipewire-module-pal.la
  libpipewire_module_pal_la_SOURCES   = src/pw-pal-plugin.c
@@ -29,10 +32,10 @@ Index: pkg-audioreach-pipewire-plugin/Makefile.am
  
  install-exec-hook:
  	mkdir -p $(DESTDIR)/usr/lib/pipewire-0.3
-Index: pkg-audioreach-pipewire-plugin/configure.ac
-===================================================================
---- pkg-audioreach-pipewire-plugin.orig/configure.ac
-+++ pkg-audioreach-pipewire-plugin/configure.ac
+diff --git a/configure.ac b/configure.ac
+index a9fee18..9d1f415 100644
+--- a/configure.ac
++++ b/configure.ac
 @@ -26,8 +26,9 @@ AC_SUBST([AGM_LIBS])
  PKG_CHECK_MODULES([PIPEWIRE], [libpipewire-0.3])
  AC_SUBST([PIPEWIRE_CFLAGS])
