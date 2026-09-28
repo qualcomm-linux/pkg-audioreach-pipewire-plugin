@@ -2,31 +2,69 @@ audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+4~) UNRELEASED; 
 
   * Unreleased changes
 
- -- root <root@63c8cc718727>  Mon, 13 Jul 2026 13:42:03 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 13 Jul 2026 13:42:03 +0000
+
+audioreach-pipewire-plugin (0.0+git20260515-1qli1) forky; urgency=medium
+
+  [ Lukas Märdian ]
+  * d/changelog: Fixing the version string to -1qli1,
+    even though this is not released in Debian.
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 28 Sep 2026 14:50:51 +0000
+
+audioreach-pipewire-plugin (0.0+git20260515-0qli+staging3) forky; urgency=medium
+
+  [ Lukas Märdian ]
+  * Rebuild for QLI.
+  * d/control: Add dependency on audioreach-pal (config).
+  * d/tests: Add functional on-device (RB3-Gen2) test.
+  * d/patches: Refresh.
+  * d/patches: Rename plugin to libpipewire-module-audioreach-pal.
+    - d/p/0002-build-rename-plugin-to-libpipewire-module-audioreach.patch
+  * d/gbp.conf: Update for QLI.
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 28 Sep 2026 14:25:51 +0000
+
+audioreach-pipewire-plugin (0.0+git20260515-0qli+staging2) forky; urgency=medium
+
+  [ Lukas Märdian ]
+  * d/copyright: Initial DEP-5 data.
+  * d/watch: Initial watch file.
+  * d/controL Wrap-and-sort.
+  * d/control: Add myself as an uploader.
+  * d/control: Drop implicit fields.
+  * d/control: Adopt Vcs-Git.
+  * d/control: Cleanup QLI build-deps.
+  * d/audioreach-pipewire-plugin.install: Simplify.
+  * d/rules: Cleanup and enable hardening flags."
+  * d/patches: Link against QLI's audioreach-pal.pc pkgconfig.
+    - d/p/0001-build-use-audioreach-pal-pkg-config.patch
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 22 Sep 2026 14:47:24 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+3) trixie; urgency=medium
 
   [ Chiluka Rohith]
   * Unreleased changes
 
- -- root <root@4bc4bc0e5bc4>  Mon, 13 Jul 2026 13:39:36 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 13 Jul 2026 13:39:36 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+2~) UNRELEASED; urgency=medium
 
   * Unreleased changes
 
- -- root <root@9e0872c7ceb7>  Fri, 10 Jul 2026 12:47:50 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Fri, 10 Jul 2026 12:47:50 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1~bpo13+1) trixie; urgency=medium
 
   [ Agathe Porte ]
   * Rebuild for trixie.
 
- -- root <root@c64b99345c0c>  Fri, 10 Jul 2026 12:45:26 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Fri, 10 Jul 2026 12:45:26 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging1) forky; urgency=low
 
   [ Agathe Porte ]
   * Initial release.
 
- -- root <root@f8cea8daec54>  Fri, 10 Jul 2026 12:04:47 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Fri, 10 Jul 2026 12:04:47 +0000

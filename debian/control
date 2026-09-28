@@ -1,37 +1,35 @@
 Source: audioreach-pipewire-plugin
 Section: misc
-Priority: optional
 Maintainer: Saurav Kumar <sauravk@qti.qualcomm.com>
 Uploaders:
- Agathe Porte <agathe.porte@oss.qualcomm.com>
-Rules-Requires-Root: no
+ Agathe Porte <agathe.porte@oss.qualcomm.com>,
+ Lukas Märdian <lukas.maerdian@oss.qualcomm.com>,
 Build-Depends:
  debhelper-compat (= 13),
- pkg-config,
+ libagm-dev,
+ libaudioreach-pal-dev,
+ libexpat1-dev,
  libpipewire-0.3-dev,
  libspa-0.2-dev,
- wireplumber,
- pipewire,
- audioreach-pal,
- audioreach-pal-dev,
- audioreach-graphmgr,
- audioreach-graphmgr-dev,
- libexpat1-dev,
  libtinyalsa-dev,
+ pkgconf,
 Standards-Version: 4.6.2
 Homepage: https://github.com/Audioreach/audioreach-pipewire-plugin
-Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin -b debian/latest
+Vcs-Git: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin.git
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-audioreach-pipewire-plugin
 
 Package: audioreach-pipewire-plugin
 Architecture: arm64
 Depends:
- ${shlibs:Depends},
- ${misc:Depends},
- wireplumber,
- pipewire,
+ audioreach-calibration-data,
+ audioreach-conf,
  audioreach-pal,
- audioreach-graphmgr,
+ audioreach-pal-plugins,
+ libagm-tinyalsa-plugins,
+ pipewire,
+ wireplumber,
+ ${misc:Depends},
+ ${shlibs:Depends},
 Description: PipeWire plugin for AudioReach audio framework
  Provides a PipeWire module that integrates AudioReach PAL
  devices with the PipeWire audio server, enabling audio routing
