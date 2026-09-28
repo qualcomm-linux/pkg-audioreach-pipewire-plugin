@@ -1,9 +1,14 @@
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging3~) UNRELEASED; urgency=medium
 
+  * Rebuild for QLI.
   * d/control: Add dependency on audioreach-pal (config).
   * d/tests: Add functional on-device (RB3-Gen2) test.
+  * d/patches: Refresh.
+  * d/patches: Rename plugin to libpipewire-module-audioreach-pal.
+    - d/p/0002-build-rename-plugin-to-libpipewire-module-audioreach.patch
+  * d/gbp.conf: Update for QLI.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Wed, 23 Sep 2026 09:41:22 +0200
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 28 Sep 2026 16:05:55 +0200
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging2) forky; urgency=medium
 
