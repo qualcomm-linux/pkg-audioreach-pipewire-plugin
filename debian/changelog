@@ -1,8 +1,9 @@
-audioreach-pipewire-plugin (0.0+git20260515-0qli+staging3qli1~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (0.0+git20260515-1qli1~) UNRELEASED; urgency=medium
 
-  * Unreleased changes
+  * d/changelog: Fixing the version string to -1qli1,
+    even though this is not released in Debian.
 
- -- Debusine Action Bot <noreply@bot.invalid>  Mon, 28 Sep 2026 14:29:13 +0000
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 28 Sep 2026 16:31:16 +0200
 
 audioreach-pipewire-plugin (0.0+git20260515-0qli+staging3) forky; urgency=medium
 
