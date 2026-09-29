@@ -1,8 +1,12 @@
-audioreach-pipewire-plugin (0.0+git20260515-1qli2~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (1.0.2-0qli1~) UNRELEASED; urgency=medium
 
+  [ Debusine Action Bot ]
   * Unreleased changes
 
- -- Debusine Action Bot <noreply@bot.invalid>  Mon, 28 Sep 2026 14:56:36 +0000
+  [ GitHub Service Bot ]
+  * New upstream release
+
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 29 Sep 2026 09:19:25 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-1qli1) forky; urgency=medium
 
