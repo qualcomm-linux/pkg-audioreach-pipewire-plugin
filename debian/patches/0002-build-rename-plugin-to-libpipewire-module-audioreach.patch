@@ -17,14 +17,14 @@ Origin: https://github.com/AudioReach/audioreach-pipewire-plugin/pull/37
 Signed-off-by: Tejas Vijay Kanfade <tkanfade@qti.qualcomm.com>
 ---
  Makefile.am                       |  16 ++--
- configs/pw-audioreach-plugin.conf | 162 ++++++++++++++++++++++++++++++++++++++
- configs/pw-pal-plugin.conf        | 162 --------------------------------------
- 3 files changed, 170 insertions(+), 170 deletions(-)
+ configs/pw-audioreach-plugin.conf | 176 ++++++++++++++++++++++++++++++++++++++
+ configs/pw-pal-plugin.conf        | 176 --------------------------------------
+ 3 files changed, 184 insertions(+), 184 deletions(-)
  create mode 100644 configs/pw-audioreach-plugin.conf
  delete mode 100644 configs/pw-pal-plugin.conf
 
 diff --git a/Makefile.am b/Makefile.am
-index 1b7df6a..496be0e 100644
+index 9727ab8..5defea6 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -4,22 +4,22 @@ EXTRA_DIST = $(pkgconfig_DATA)
@@ -33,12 +33,12 @@ index 1b7df6a..496be0e 100644
  
 -lib_LTLIBRARIES      = libpipewire-module-pal.la
 -libpipewire_module_pal_la_SOURCES   = src/pw-pal-plugin.c
--libpipewire_module_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ @PIPEWIRE_CFLAGS@
+-libpipewire_module_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ $(VUIINTFHEADER_CFLAGS) @PIPEWIRE_CFLAGS@
 -libpipewire_module_pal_la_LDFLAGS   = -shared -avoid-version
 -libpipewire_module_pal_la_LIBADD   = -ltinyalsa -ldl -lexpat @PAL_LIBS@ -lagm
 +lib_LTLIBRARIES      = libpipewire-module-audioreach-pal.la
 +libpipewire_module_audioreach_pal_la_SOURCES   = src/pw-pal-plugin.c
-+libpipewire_module_audioreach_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ @PIPEWIRE_CFLAGS@
++libpipewire_module_audioreach_pal_la_CFLAGS = $(AM_CFLAGS) @PAL_CFLAGS@ $(VUIINTFHEADER_CFLAGS) @PIPEWIRE_CFLAGS@
 +libpipewire_module_audioreach_pal_la_LDFLAGS   = -shared -avoid-version
 +libpipewire_module_audioreach_pal_la_LIBADD   = -ltinyalsa -ldl -lexpat @PAL_LIBS@ -lagm
  
@@ -60,10 +60,10 @@ index 1b7df6a..496be0e 100644
  	$(INSTALL_DATA) $(srcdir)/configs/90-device-detection.lua  $(DESTDIR)/usr/share/wireplumber/scripts/
 diff --git a/configs/pw-audioreach-plugin.conf b/configs/pw-audioreach-plugin.conf
 new file mode 100644
-index 0000000..a5c6551
+index 0000000..6fb5581
 --- /dev/null
 +++ b/configs/pw-audioreach-plugin.conf
-@@ -0,0 +1,162 @@
+@@ -0,0 +1,176 @@
 +context.modules = [
 +{   name = libpipewire-module-audioreach-pal
 +    args = {
@@ -224,14 +224,28 @@ index 0000000..a5c6551
 +        jack-name = "Headset Jack"
 +        devices = [ Speaker Headset ]
 +    }
-+}
++},
++{   name = libpipewire-module-audioreach-pal
++    args = {
++        node.name = "pal_source_voice_ui"
++        node.description = "pal source voice activation SVA"
++        stream.props = {
++            audio.position = [ MONO ]
++            audio.rate = 16000
++            audio.format = S16LE
++            audio.channels = 1
++        }
++        media.class = "Audio/Source"
++        media.role = "VoiceUI"
++    }
++},
 +]
 diff --git a/configs/pw-pal-plugin.conf b/configs/pw-pal-plugin.conf
 deleted file mode 100644
-index 164465c..0000000
+index a6d6434..0000000
 --- a/configs/pw-pal-plugin.conf
 +++ /dev/null
-@@ -1,162 +0,0 @@
+@@ -1,176 +0,0 @@
 -context.modules = [
 -{   name = libpipewire-module-pal
 -    args = {
@@ -392,5 +406,19 @@ index 164465c..0000000
 -        jack-name = "Headset Jack"
 -        devices = [ Speaker Headset ]
 -    }
--}
+-},
+-{   name = libpipewire-module-pal
+-    args = {
+-        node.name = "pal_source_voice_ui"
+-        node.description = "pal source voice activation SVA"
+-        stream.props = {
+-            audio.position = [ MONO ]
+-            audio.rate = 16000
+-            audio.format = S16LE
+-            audio.channels = 1
+-        }
+-        media.class = "Audio/Source"
+-        media.role = "VoiceUI"
+-    }
+-},
 -]
