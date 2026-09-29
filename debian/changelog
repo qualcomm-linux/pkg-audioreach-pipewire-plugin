@@ -1,4 +1,4 @@
-audioreach-pipewire-plugin (1.0.2-0qli1~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (1.0.2-0qli1) forky; urgency=medium
 
   [ GitHub Service Bot ]
   * New upstream release: 1.0.2
@@ -9,7 +9,7 @@ audioreach-pipewire-plugin (1.0.2-0qli1~) UNRELEASED; urgency=medium
   * d/patches: Fix uninit-heap issues, as discovered by Semgrep.
     - d/p/0003-pw-pal-plugin-replace-malloc-with-calloc-to-fix-unin.patch
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 29 Sep 2026 14:10:31 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 29 Sep 2026 12:42:35 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-1qli1) forky; urgency=medium
 
