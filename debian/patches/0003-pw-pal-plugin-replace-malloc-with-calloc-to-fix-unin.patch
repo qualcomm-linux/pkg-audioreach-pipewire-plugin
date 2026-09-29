@@ -1,0 +1,47 @@
+From: Tejas Vijay Kanfade <tkanfade@qti.qualcomm.com>
+Date: Tue, 29 Sep 2026 16:49:58 +0530
+Subject: pw-pal-plugin: replace malloc with calloc to fix uninit-heap
+ findings
+
+Semgrep flags two heap allocations that are read before visible
+initialization:
+
+1. tmp buffer in pw_pal_reader_thread() (line 189):
+   pal_stream_read() writes into tmp via pal_buf.buffer, but semgrep
+   cannot trace the indirect write. Use calloc to make initialization
+   explicit and safe.
+
+2. model_data buffer in sva_load_sound_model() (line 593):
+   Buffer is filled by fread() after allocation, but semgrep flags
+   the malloc. Use calloc to zero-initialize before use.
+
+Fixes: reusable-workflows.semgrep_rules.uninit.heap.must
+Origin: https://github.com/AudioReach/audioreach-pipewire-plugin/pull/40
+
+Signed-off-by: Tejas Vijay Kanfade <tkanfade@qti.qualcomm.com>
+---
+ src/pw-pal-plugin.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/pw-pal-plugin.c b/src/pw-pal-plugin.c
+index 6358091..eef0c07 100644
+--- a/src/pw-pal-plugin.c
++++ b/src/pw-pal-plugin.c
+@@ -186,7 +186,7 @@ static void *pw_pal_reader_thread(void *arg)
+     uint8_t *tmp;
+     uint32_t buf_size = udata->source_buf_size;
+ 
+-    tmp = malloc(buf_size);
++    tmp = calloc(1, buf_size);
+     if (!tmp) {
+         pw_log_error("reader thread: malloc failed");
+         return NULL;
+@@ -590,7 +590,7 @@ static int sva_load_sound_model(struct pw_userdata *udata)
+         udata->sva_cfg.model_data = NULL;
+     }
+ 
+-    udata->sva_cfg.model_data = malloc(udata->sva_cfg.model_size);
++    udata->sva_cfg.model_data = calloc(1, udata->sva_cfg.model_size);
+     if (!udata->sva_cfg.model_data) return -ENOMEM;
+ 
+     fp = fopen(udata->sva_cfg.model_path, "rb");

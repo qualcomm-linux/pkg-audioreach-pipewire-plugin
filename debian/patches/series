@@ -1,2 +1,3 @@
 0001-build-use-audioreach-pal-pkg-config.patch
 0002-build-rename-plugin-to-libpipewire-module-audioreach.patch
+0003-pw-pal-plugin-replace-malloc-with-calloc-to-fix-unin.patch
