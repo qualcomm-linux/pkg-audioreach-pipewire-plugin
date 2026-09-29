@@ -1,12 +1,15 @@
 audioreach-pipewire-plugin (1.0.2-0qli1~) UNRELEASED; urgency=medium
 
-  [ Debusine Action Bot ]
-  * Unreleased changes
-
   [ GitHub Service Bot ]
-  * New upstream release
+  * New upstream release: 1.0.2
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 29 Sep 2026 09:19:25 +0000
+  [ Lukas Märdian ]
+  * d/control: Build-depend on new audioreach-vui-intf-dev.
+  * d/patches: Refresh for v1.0.2.
+  * d/patches: Fix uninit-heap issues, as discovered by Semgrep.
+    - d/p/0003-pw-pal-plugin-replace-malloc-with-calloc-to-fix-unin.patch
+
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 29 Sep 2026 14:10:31 +0200
 
 audioreach-pipewire-plugin (0.0+git20260515-1qli1) forky; urgency=medium
 
