@@ -1,10 +1,11 @@
-audioreach-pipewire-plugin (0.0+git20260515-1qli1~bpo13+1~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (0.0+git20260515-1qli1~bpo13+1) trixie; urgency=medium
 
+  [ Lukas Märdian ]
   * Rebuild for Trixie QLI.
   * d/gbp.conf: Update for Trixie QLI.
   * d/p/configs-remove-90-device-detection-conf.patch: Drop Trixie only patch.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 29 Sep 2026 08:49:02 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 29 Sep 2026 07:25:31 +0000
 
 audioreach-pipewire-plugin (0.0+git20260515-1qli1) forky; urgency=medium
 
