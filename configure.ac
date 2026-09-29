@@ -3,7 +3,7 @@
 # Requires autoconf tool later than 2.61
 AC_PREREQ(2.69)
 # Initialize the smwrapper package version 1.0.0
-AC_INIT([pw-pal],1.0.0)
+AC_INIT([pw-pal],1.0.2)
 # Does not strictly follow GNU Coding standards
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 
@@ -28,6 +28,9 @@ AC_SUBST([PIPEWIRE_CFLAGS])
 
 PKG_CHECK_MODULES([PALHEADERS], [pal-headers])
 AC_SUBST([PALHEADERS_CFLAGS])
+
+PKG_CHECK_MODULES([VUIINTFHEADER], [vui-intf-header])
+AC_SUBST([VUIINTFHEADER_CFLAGS])
 
 AC_CONFIG_FILES([ Makefile pw-pal.pc ])
 AC_OUTPUT
