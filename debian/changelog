@@ -1,12 +1,16 @@
 audioreach-pipewire-plugin (1.1.0-0qli1~) UNRELEASED; urgency=medium
 
-  [ Debusine Action Bot ]
-  * Unreleased changes
-
   [ GitHub Service Bot ]
-  * New upstream release
+  * New upstream release 1.1.0
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 25 Nov 2026 10:33:52 +0000
+  [ Lukas Märdian ]
+  * d/patches: Refresh.
+    - d/p/0001-build-use-audioreach-pal-pkg-config.patch
+    - d/p/0002-build-rename-plugin-to-libpipewire-module-audioreach.patch
+    - d/p/0003-pw-pal-plugin-replace-malloc-with-calloc-to-fix-unin.patch
+  * d/examples: Ship pal-compress-offload-sink.conf as an example.
+
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Thu, 26 Nov 2026 11:56:59 +0100
 
 audioreach-pipewire-plugin (1.0.3-0qli1) forky; urgency=medium
 
