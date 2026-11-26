@@ -23,11 +23,9 @@ Signed-off-by: Tejas Vijay Kanfade <tkanfade@qti.qualcomm.com>
  src/pw-pal-plugin.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/pw-pal-plugin.c b/src/pw-pal-plugin.c
-index 6358091..eef0c07 100644
 --- a/src/pw-pal-plugin.c
 +++ b/src/pw-pal-plugin.c
-@@ -186,7 +186,7 @@ static void *pw_pal_reader_thread(void *arg)
+@@ -344,7 +344,7 @@
      uint8_t *tmp;
      uint32_t buf_size = udata->source_buf_size;
  
@@ -36,7 +34,7 @@ index 6358091..eef0c07 100644
      if (!tmp) {
          pw_log_error("reader thread: malloc failed");
          return NULL;
-@@ -590,7 +590,7 @@ static int sva_load_sound_model(struct pw_userdata *udata)
+@@ -760,7 +760,7 @@
          udata->sva_cfg.model_data = NULL;
      }
  
