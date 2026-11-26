@@ -1,9 +1,10 @@
-audioreach-pipewire-plugin (1.1.0-0qli1~bpo13+1~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (1.1.0-0qli1~bpo13+1) trixie; urgency=medium
 
+  [ Lukas Märdian ]
   * Rebuild for trixie.
   * d/control: Build-depend against libpipewire from trixie-backports.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Thu, 26 Nov 2026 12:14:04 +0100
+ -- Debusine Action Bot <noreply@bot.invalid>  Thu, 26 Nov 2026 11:28:47 +0000
 
 audioreach-pipewire-plugin (1.1.0-0qli1) forky; urgency=medium
 
