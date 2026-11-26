@@ -1,8 +1,38 @@
-audioreach-pipewire-plugin (1.0.2-0qli1~bpo13+3~) UNRELEASED; urgency=medium
+audioreach-pipewire-plugin (1.1.0-0qli1~bpo13+1~) UNRELEASED; urgency=medium
 
+  * Rebuild for trixie.
+  * d/control: Build-depend against libpipewire from trixie-backports.
+
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Thu, 26 Nov 2026 12:14:04 +0100
+
+audioreach-pipewire-plugin (1.1.0-0qli1) forky; urgency=medium
+
+  [ GitHub Service Bot ]
+  * New upstream release 1.1.0
+
+  [ Lukas Märdian ]
+  * d/patches: Refresh.
+    - d/p/0001-build-use-audioreach-pal-pkg-config.patch
+    - d/p/0002-build-rename-plugin-to-libpipewire-module-audioreach.patch
+    - d/p/0003-pw-pal-plugin-replace-malloc-with-calloc-to-fix-unin.patch
+  * d/examples: Ship pal-compress-offload-sink.conf as an example.
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Thu, 26 Nov 2026 11:06:00 +0000
+
+audioreach-pipewire-plugin (1.0.3-0qli1) forky; urgency=medium
+
+  [ Debusine Action Bot ]
   * Unreleased changes
 
- -- Debusine Action Bot <noreply@bot.invalid>  Mon, 23 Nov 2026 11:44:30 +0000
+  [ GitHub Service Bot ]
+  * New upstream release v1.0.3
+
+  [ Lukas Märdian ]
+  * Rebuild for libaudioreach-pal2.
+  * d/patches: Refresh.
+  * d/not-installed: Skip pal-compress-offload-sink.conf for now.
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Wed, 18 Nov 2026 14:44:12 +0000
 
 audioreach-pipewire-plugin (1.0.2-0qli1~bpo13+2) trixie; urgency=medium
 
