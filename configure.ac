@@ -3,7 +3,7 @@
 # Requires autoconf tool later than 2.61
 AC_PREREQ(2.69)
 # Initialize the smwrapper package version 1.0.0
-AC_INIT([pw-pal],1.0.2)
+AC_INIT([pw-pal],1.1.0)
 # Does not strictly follow GNU Coding standards
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 
@@ -25,6 +25,16 @@ AC_SUBST([AGM_LIBS])
 
 PKG_CHECK_MODULES([PIPEWIRE], [libpipewire-0.3])
 AC_SUBST([PIPEWIRE_CFLAGS])
+
+save_CPPFLAGS="$CPPFLAGS"
+CPPFLAGS="$CPPFLAGS $PIPEWIRE_CFLAGS"
+AAC_OBJECT_TYPE_CFLAGS=""
+AC_CHECK_MEMBER([struct spa_audio_info_aac.audio_object_type],
+    [AAC_OBJECT_TYPE_CFLAGS="-DHAVE_SPA_AUDIO_INFO_AAC_AUDIO_OBJECT_TYPE=1"],
+    [],
+    [[#include <spa/param/audio/aac.h>]])
+CPPFLAGS="$save_CPPFLAGS"
+AC_SUBST([AAC_OBJECT_TYPE_CFLAGS])
 
 PKG_CHECK_MODULES([PALHEADERS], [pal-headers])
 AC_SUBST([PALHEADERS_CFLAGS])
